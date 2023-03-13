@@ -1,0 +1,15 @@
+import { IValidator, StringOrNull } from "../Types";
+
+export class RegularExpressionValidator implements IValidator<StringOrNull> {
+    private regex: RegExp;
+    constructor(expression: string) {
+        this.regex = new RegExp(expression);
+    }
+
+    public isValid(input: StringOrNull): boolean {
+        if(!input) {
+            return false;
+        }
+        return this.regex.test(input);
+    }
+}
