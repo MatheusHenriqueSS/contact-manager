@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Col, Row } from "reactstrap";
+import { FormValidation } from "./FormValidation";
 import { IPersonState, StringOrNull } from "./Types";
 
 interface IProps {
@@ -8,6 +9,7 @@ interface IProps {
 
 const PersonalDetails: React.FC<IProps> = ({defaultState}) =>  {
     const [form, setForm] = useState(defaultState);
+    const [canSave, setCanSave] = useState<boolean>(false);
 
     const updateBinding = (fieldName: string, value: StringOrNull) => {
         setForm(
@@ -19,6 +21,9 @@ const PersonalDetails: React.FC<IProps> = ({defaultState}) =>  {
         console.log("postcode", form.Postcode);
     }
 
+    const userCanSave = (hasErrors: boolean) => {
+        setCanSave(hasErrors);
+    }
 
     return (
         <Row>
@@ -74,6 +79,7 @@ const PersonalDetails: React.FC<IProps> = ({defaultState}) =>  {
                         </Col>
                     </Col>
                 </Row>
+                <Row><FormValidation CurrentState={form} CanSave={userCanSave}/></Row>
             </Col>
         </Row>
     )
